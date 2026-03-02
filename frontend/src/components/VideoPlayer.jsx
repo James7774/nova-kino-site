@@ -37,10 +37,19 @@ const VideoPlayer = ({ url, sourceType = 'auto', poster = '', title = '' }) => {
   }, [detectSource]);
 
   const getYoutubeEmbedUrl = (link) => {
+    if (!link) return '';
     if (link.includes('embed/')) return link;
-    const id = link.includes('v=') 
-      ? link.split('v=')[1]?.split('&')[0] 
-      : link.split('youtu.be/')[1]?.split('?')[0];
+    
+    let id = '';
+    if (link.includes('v=')) {
+      id = link.split('v=')[1]?.split('&')[0];
+    } else if (link.includes('youtu.be/')) {
+      id = link.split('youtu.be/')[1]?.split('?')[0];
+    } else if (link.includes('youtube.com/shorts/')) {
+      id = link.split('shorts/')[1]?.split('?')[0];
+    }
+    
+    if (!id) return link; // Fallback to raw link if ID not found
     return `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=0`;
   };
 
