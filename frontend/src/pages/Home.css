@@ -1,0 +1,7 @@
+.home-section {
+  margin-bottom: 32px;
+}
+
+.home-section:last-child {
+  margin-bottom: 0;
+}
