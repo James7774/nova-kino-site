@@ -18,9 +18,9 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (menuOpen) setMenuOpen(false);
-    if (searchOpen) setSearchOpen(false);
-  }, [location]);
+    setMenuOpen(false);
+    setSearchOpen(false);
+  }, [location.pathname]);
 
   const handleSearch = (e) => {
     e.preventDefault();
