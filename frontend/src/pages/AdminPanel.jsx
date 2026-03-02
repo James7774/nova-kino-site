@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { Plus, Trash2, Edit2, LogOut, X, Film } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import './AdminPanel.css';
@@ -16,7 +16,7 @@ const AdminPanel = () => {
 
   const fetchMovies = async () => {
     try {
-      const { data } = await axios.get('http://localhost:5000/api/movies');
+      const { data } = await api.get('/movies');
       setMovies(data);
     } catch (e) { console.error(e); }
   };
@@ -58,9 +58,9 @@ const AdminPanel = () => {
     const movieData = { ...form, genres: form.genres.split(',').map(g => g.trim()) };
     try {
       if (editId) {
-        await axios.put(`http://localhost:5000/api/movies/${editId}`, movieData, getConfig());
+        await api.put(`/movies/${editId}`, movieData, getConfig());
       } else {
-        await axios.post('http://localhost:5000/api/movies', movieData, getConfig());
+        await api.post('/movies', movieData, getConfig());
       }
       resetForm();
       fetchMovies();
@@ -72,7 +72,7 @@ const AdminPanel = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('O\'chirmoqchimisiz?')) return;
     try {
-      await axios.delete(`http://localhost:5000/api/movies/${id}`, getConfig());
+      await api.delete(`/movies/${id}`, getConfig());
       fetchMovies();
     } catch { alert('Xatolik!'); }
   };

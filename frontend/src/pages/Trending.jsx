@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import MovieCard from '../components/MovieCard';
 import { Flame } from 'lucide-react';
 
@@ -10,7 +10,7 @@ const Trending = () => {
   useEffect(() => {
     const fetchTrending = async () => {
       try {
-        const { data } = await axios.get('http://localhost:5000/api/movies?trending=true');
+        const { data } = await api.get('/movies?trending=true');
         setMovies(data);
       } catch (err) {
         console.error(err);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { Play, Calendar, MapPin, Film, Star, ArrowLeft } from 'lucide-react';
 import './MovieDetail.css';
 
@@ -36,7 +36,7 @@ const MovieDetail = () => {
     window.scrollTo(0, 0);
     const fetchMovie = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/movies/${id}`);
+        const res = await api.get(`/movies/${id}`);
         setMovie(res.data);
       } catch {
         setMovie({ ...DUMMY, _id: id });

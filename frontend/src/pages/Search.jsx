@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import MovieCard from '../components/MovieCard';
 import { Search as SearchIcon } from 'lucide-react';
 import './Search.css';
@@ -18,7 +18,7 @@ const SearchPage = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/movies?search=${query}`);
+        const res = await api.get(`/movies?search=${query}`);
         setMovies(res.data.length > 0 ? res.data : []);
       } catch {
         const filtered = DUMMY_MOVIES.filter(m => m.title.toLowerCase().includes(query?.toLowerCase() || ''));

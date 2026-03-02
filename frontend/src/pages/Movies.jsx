@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import MovieCard from '../components/MovieCard';
 import { Film, Filter } from 'lucide-react';
 import './Movies.css';
@@ -23,9 +23,9 @@ const Movies = () => {
       setLoading(true);
       try {
         const url = genre && genre !== 'Barcha' 
-          ? `http://localhost:5000/api/movies?genre=${genre}`
-          : 'http://localhost:5000/api/movies';
-        const { data } = await axios.get(url);
+          ? `/movies?genre=${genre}`
+          : '/movies';
+        const { data } = await api.get(url);
         setMovies(data);
       } catch (err) {
         console.error(err);

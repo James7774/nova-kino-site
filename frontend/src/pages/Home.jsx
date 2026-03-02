@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import Hero from '../components/Hero';
 import MovieCard from '../components/MovieCard';
 import { TrendingUp, Clock, Flame } from 'lucide-react';
@@ -81,7 +81,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/movies?limit=20');
+        const res = await api.get('/movies?limit=20');
         if (res.data && res.data.length > 0) {
           setMovies(res.data);
         }
