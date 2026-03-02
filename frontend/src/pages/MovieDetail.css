@@ -99,23 +99,65 @@
 }
 
 .player-box {
-  margin-top: 8px;
-}
-
-.player-frame {
-  position: relative;
-  padding-bottom: 56.25%;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: #000;
+  margin-top: 40px;
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 20px;
   border: 1px solid var(--border);
 }
 
-.player-frame iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.player-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.watch-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.watch-btn:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.download-btn {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-white);
+  border: 1px solid var(--border);
+}
+
+.download-btn:hover:not(.disabled) {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.download-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+@media (max-width: 640px) {
+  .player-actions {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 768px) {

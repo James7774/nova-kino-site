@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import Hero from '../components/Hero';
-import MovieCard from '../components/MovieCard';
+import MovieSlider from '../components/MovieSlider';
 import { TrendingUp, Clock, Flame } from 'lucide-react';
 import './Home.css';
 
@@ -101,11 +101,9 @@ const Home = () => {
       <section className="container home-section">
         <div className="section-header">
           <h2 className="section-title"><span className="bar"></span><Flame size={16} /> Premyeralar</h2>
-          <a href="/trending" className="see-all">Barchasi →</a>
+          <a href="/movies" className="see-all">Barchasi →</a>
         </div>
-        <div className="movie-grid">
-          {movies.slice(0, 8).map(m => <MovieCard key={m._id} movie={m} />)}
-        </div>
+        <MovieSlider movies={movies.slice(0, 10)} />
       </section>
 
       <section className="container home-section">
@@ -113,9 +111,7 @@ const Home = () => {
           <h2 className="section-title"><span className="bar"></span><TrendingUp size={16} /> Trendda</h2>
           <a href="/trending" className="see-all">Barchasi →</a>
         </div>
-        <div className="movie-grid">
-          {(trending.length > 0 ? trending : movies).slice(0, 8).map(m => <MovieCard key={m._id} movie={m} />)}
-        </div>
+        <MovieSlider movies={(trending.length > 0 ? trending : movies).slice(0, 10)} />
       </section>
 
       <section className="container home-section">
@@ -123,9 +119,7 @@ const Home = () => {
           <h2 className="section-title"><span className="bar"></span><Clock size={16} /> So'nggi qo'shilganlar</h2>
           <a href="/movies" className="see-all">Barchasi →</a>
         </div>
-        <div className="movie-grid">
-          {movies.slice(0, 8).map(m => <MovieCard key={m._id} movie={m} />)}
-        </div>
+        <MovieSlider movies={movies.slice(0, 10)} />
       </section>
     </div>
   );

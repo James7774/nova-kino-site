@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../utils/api';
-import { Play, Calendar, MapPin, Film, Star, ArrowLeft } from 'lucide-react';
+import { Play, Calendar, MapPin, Film, Star, ArrowLeft, Download, Tv } from 'lucide-react';
 import VideoPlayer from '../components/VideoPlayer';
 import './MovieDetail.css';
 
@@ -78,6 +78,24 @@ const MovieDetail = () => {
               poster={movie.coverImage || movie.poster} 
               title={movie.title}
             />
+            
+            <div className="player-actions">
+              <button className="action-btn watch-btn">
+                <Tv size={18} />
+                <span>Onlayn ko'rish</span>
+              </button>
+              
+              <a 
+                href={movie.downloadUrl || (movie.videoSourceType === 'mp4' ? movie.videoUrl : null)} 
+                className={`action-btn download-btn ${(!movie.downloadUrl && movie.videoSourceType !== 'mp4') ? 'disabled' : ''}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+                download
+              >
+                <Download size={18} />
+                <span>Yuklab olish</span>
+              </a>
+            </div>
           </div>
         )}
       </div>

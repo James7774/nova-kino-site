@@ -1,0 +1,49 @@
+.slider-container {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.movie-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  cursor: grab;
+  padding-bottom: 20px;
+  /* Hide Scrollbar */
+  scrollbar-width: none; /* Firefox */
+}
+
+.movie-slider::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.movie-slider.grabbing {
+  cursor: grabbing;
+  scroll-behavior: auto; /* Smoother dragging */
+}
+
+.slider-item {
+  flex: 0 0 calc(25% - 12px); /* 4 items shown on desktop */
+  min-width: 154px;
+}
+
+@media (max-width: 1024px) {
+  .slider-item {
+    flex: 0 0 calc(33.33% - 11px); /* 3 items on tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .slider-item {
+    flex: 0 0 calc(50% - 8px); /* 2 items on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-item {
+    flex: 0 0 148px; /* Fixed size for small screens */
+  }
+}

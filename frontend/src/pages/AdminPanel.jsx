@@ -10,7 +10,7 @@ const AdminPanel = () => {
   const [editId, setEditId] = useState(null);
   const [form, setForm] = useState({
     title: '', description: '', poster: '', videoUrl: '',
-    videoSourceType: 'auto',
+    videoSourceType: 'auto', downloadUrl: '',
     year: 2024, genres: '', quality: 'HD', isTrending: false, country: ''
   });
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ const AdminPanel = () => {
   };
 
   const resetForm = () => {
-    setForm({ title: '', description: '', poster: '', videoUrl: '', videoSourceType: 'auto', year: 2024, genres: '', quality: 'HD', isTrending: false, country: '' });
+    setForm({ title: '', description: '', poster: '', videoUrl: '', videoSourceType: 'auto', downloadUrl: '', year: 2024, genres: '', quality: 'HD', isTrending: false, country: '' });
     setEditId(null);
     setShowForm(false);
   };
@@ -49,6 +49,7 @@ const AdminPanel = () => {
       title: movie.title, description: movie.description, poster: movie.poster,
       videoUrl: movie.videoUrl, 
       videoSourceType: movie.videoSourceType || 'auto',
+      downloadUrl: movie.downloadUrl || '',
       year: movie.year, genres: movie.genres?.join(', ') || '',
       quality: movie.quality, isTrending: movie.isTrending, country: movie.country || ''
     });
@@ -161,6 +162,9 @@ const AdminPanel = () => {
                   <label>Video URL / Kod *</label>
                   <input type="text" value={form.videoUrl} onChange={e => setField('videoUrl', e.target.value)} required placeholder="URL yoki <iframe> kod" />
                 </div>
+              </div>
+
+              <div className="form-row">
                 <div className="form-col">
                   <label>Video Turi</label>
                   <select value={form.videoSourceType} onChange={e => setField('videoSourceType', e.target.value)}>
@@ -170,6 +174,10 @@ const AdminPanel = () => {
                     <option value="embed">Boshqa Iframe</option>
                     <option value="embed-code">Iframe Kod (HTML)</option>
                   </select>
+                </div>
+                <div className="form-col">
+                  <label>Download Link (MP4)</label>
+                  <input type="text" value={form.downloadUrl} onChange={e => setField('downloadUrl', e.target.value)} placeholder="https://..." />
                 </div>
               </div>
 
