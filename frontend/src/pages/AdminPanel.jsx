@@ -30,7 +30,10 @@ const AdminPanel = () => {
   useEffect(() => {
     const userInfo = localStorage.getItem('userInfo');
     if (!userInfo) { navigate('/admin/login'); return; }
-    fetchMovies();
+    const loader = async () => {
+      await fetchMovies();
+    };
+    loader();
   }, [navigate]);
 
   const handleLogout = () => {

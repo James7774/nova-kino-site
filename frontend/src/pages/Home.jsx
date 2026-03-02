@@ -85,7 +85,7 @@ const Home = () => {
         if (res.data && res.data.length > 0) {
           setMovies(res.data);
         }
-      } catch (err) {
+      } catch {
         console.log('API fetch failed, using cache/dummy data');
       }
     };
