@@ -38,6 +38,7 @@ const Navbar = () => {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="container nav-inner">
           <Link to="/" className="nav-logo">
+            <img src="/favicon.png" alt="Logo" className="nav-logo-img" />
             Nova<span>Kino</span>
           </Link>
 
@@ -75,7 +76,10 @@ const Navbar = () => {
       {menuOpen && <div className="mobile-overlay" onClick={() => setMenuOpen(false)} />}
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
         <div className="mobile-header">
-          <span className="nav-logo">Nova<span>Kino</span></span>
+          <span className="nav-logo">
+            <img src="/favicon.png" alt="Logo" className="nav-logo-img" />
+            Nova<span>Kino</span>
+          </span>
           <button onClick={() => setMenuOpen(false)}><X size={20} /></button>
         </div>
         <form className="mobile-search" onSubmit={handleSearch}>

@@ -27,6 +27,16 @@
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
 }
 
 .nav-logo span {
