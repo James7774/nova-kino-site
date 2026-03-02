@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../utils/api';
 import { Play, Calendar, MapPin, Film, Star, ArrowLeft } from 'lucide-react';
+import VideoPlayer from '../components/VideoPlayer';
 import './MovieDetail.css';
 
 const DUMMY = {
@@ -15,18 +16,7 @@ const DUMMY = {
   genres: ['Fantastika', 'Sarguzasht']
 };
 
-const formatVideoUrl = (url) => {
-  if (!url) return '';
-  if (url.includes('youtube.com/watch?v=')) {
-    const id = url.split('v=')[1]?.split('&')[0];
-    return `https://www.youtube.com/embed/${id}`;
-  }
-  if (url.includes('youtu.be/')) {
-    const id = url.split('youtu.be/')[1]?.split('?')[0];
-    return `https://www.youtube.com/embed/${id}`;
-  }
-  return url;
-};
+
 
 const MovieDetail = () => {
   const { id } = useParams();
@@ -82,9 +72,12 @@ const MovieDetail = () => {
         {movie.videoUrl && (
           <div className="player-box">
             <h3 className="section-title"><span className="bar"></span><Play size={16} /> Onlayn ko'rish</h3>
-            <div className="player-frame">
-              <iframe src={formatVideoUrl(movie.videoUrl)} title={movie.title} frameBorder="0" allowFullScreen />
-            </div>
+            <VideoPlayer 
+              url={movie.videoUrl} 
+              sourceType={movie.videoSourceType || 'auto'} 
+              poster={movie.coverImage || movie.poster} 
+              title={movie.title}
+            />
           </div>
         )}
       </div>

@@ -7,6 +7,7 @@ const movieSchema = mongoose.Schema(
     poster: { type: String, required: true },
     coverImage: { type: String },
     videoUrl: { type: String, required: true },
+    videoSourceType: { type: String, enum: ['auto', 'youtube', 'mp4', 'embed'], default: 'auto' },
     trailerUrl: { type: String },
     year: { type: Number, required: true },
     country: { type: String },
