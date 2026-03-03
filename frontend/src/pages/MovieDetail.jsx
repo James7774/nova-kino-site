@@ -88,7 +88,7 @@ const MovieDetail = () => {
         {movie.videoUrl && (
           <section id="player-section" className="player-section-v2">
             <div className="section-header">
-              <h2 className="section-title"><span className="bar"></span><Monitor size={24} /> ONLAYN KO'RISH</h2>
+              <h2 className="section-title"><Monitor size={24} /> ONLAYN KO'RISH</h2>
             </div>
             
             <div className="player-wrapper-v2">

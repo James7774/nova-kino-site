@@ -4,39 +4,41 @@
 
 :root {
   --bg-primary: #050507;
-  --bg-secondary: #0a0a0f;
-  --bg-card: #101016;
-  --bg-hover: #151520;
+  --bg-secondary: #0c0c12;
+  --bg-card: #12121a;
+  --bg-hover: #1a1a25;
   
-  /* Cinematic Gold/Bronze Accent */
-  --accent: #e5b95f;
-  --accent-hover: #d4a74a;
-  --accent-glow: rgba(229, 185, 95, 0.4);
-  --accent-soft: rgba(229, 185, 95, 0.1);
+  /* Minimalist Premium Accent (Champagne / Silver) */
+  --accent: #d1d1e0;
+  --accent-hover: #ffffff;
+  --accent-glow: rgba(209, 209, 224, 0.2);
+  --accent-soft: rgba(255, 255, 255, 0.05);
   
   --text-white: #ffffff;
-  --text-light: #f0f0f5;
-  --text-gray: #a0a0b0;
-  --text-dark: #606075;
+  --text-light: #e0e0e0;
+  --text-gray: #808090;
+  --text-dark: #404050;
   
   --border: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.1);
   
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.6);
   
   --radius: 12px;
-  --radius-lg: 20px;
+  --radius-lg: 16px;
   --radius-full: 99px;
   
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  outline: none !important;
 }
 
 html {
@@ -162,19 +164,12 @@ input:focus, select:focus, textarea:focus {
 }
 
 .section-title {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 12px;
-}
-
-.section-title .bar {
-  width: 4px;
-  height: 24px;
-  background: linear-gradient(to bottom, var(--accent), var(--accent-hover));
-  border-radius: 4px;
-  box-shadow: 0 0 10px var(--accent-glow);
+  color: #fff;
 }
 
 .see-all {
@@ -195,6 +190,7 @@ input:focus, select:focus, textarea:focus {
 .text-gradient {
   background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

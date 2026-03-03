@@ -9,9 +9,8 @@
 }
 
 .movie-card-premium:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .card-image-wrap {
@@ -51,15 +50,14 @@
 .play-icon-circle {
   width: 48px;
   height: 48px;
-  background: var(--accent);
+  background: #fff;
   color: #000;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: scale(0.8);
+  transform: scale(0.9);
   transition: var(--transition);
-  box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .movie-card-premium:hover .play-icon-circle {

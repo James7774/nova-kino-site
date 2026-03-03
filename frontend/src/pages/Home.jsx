@@ -44,7 +44,7 @@ const Home = () => {
       <main className="container home-content-wrap">
         <section className="home-section-premium">
           <div className="section-header">
-            <h2 className="section-title"><span className="bar"></span><Flame size={20} /> PREMYERALAR</h2>
+            <h2 className="section-title"><Flame size={20} /> PREMYERALAR</h2>
             <a href="/movies" className="see-all">Barchasi →</a>
           </div>
           <MovieSlider movies={movies.slice(0, 15)} />
@@ -52,7 +52,7 @@ const Home = () => {
 
         <section className="home-section-premium">
           <div className="section-header">
-            <h2 className="section-title"><span className="bar"></span><TrendingUp size={20} /> TRENDDA</h2>
+            <h2 className="section-title"><TrendingUp size={20} /> TRENDDA</h2>
             <a href="/trending" className="see-all">Barchasi →</a>
           </div>
           <MovieSlider movies={(trending.length > 0 ? trending : movies).slice(0, 15)} />
@@ -67,7 +67,7 @@ const Home = () => {
 
         <section className="home-section-premium">
           <div className="section-header">
-            <h2 className="section-title"><span className="bar"></span><Clock size={20} /> SO'NGGI QO'SHILGANLAR</h2>
+            <h2 className="section-title"><Clock size={20} /> SO'NGGI QO'SHILGANLAR</h2>
             <a href="/movies" className="see-all">Barchasi →</a>
           </div>
           <MovieSlider movies={latest.slice(0, 15)} />

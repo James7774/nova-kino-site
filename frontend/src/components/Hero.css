@@ -141,6 +141,7 @@
   margin-bottom: 40px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   line-height: 1.6;
@@ -152,15 +153,14 @@
 }
 
 .hero-btn-primary {
-  padding: 18px 40px;
+  padding: 16px 36px;
   background: var(--accent);
   color: #000 !important;
-  border-radius: var(--radius-full);
-  font-weight: 800;
+  border-radius: 12px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 10px 25px var(--accent-glow);
 }
 
 .hero-btn-primary:active {
@@ -223,9 +223,8 @@
 }
 
 .pagination-bar.active {
-  background: var(--accent);
-  width: 65px;
-  box-shadow: 0 0 12px var(--accent-glow);
+  background: #fff;
+  width: 50px;
 }
 
 @media (max-width: 1024px) {

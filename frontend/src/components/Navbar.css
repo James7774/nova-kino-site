@@ -35,12 +35,10 @@
 .logo-icon {
   width: 32px;
   height: 32px;
-  background: var(--accent);
-  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 15px var(--accent-glow);
+  color: var(--accent);
 }
 
 .logo-icon img {
@@ -233,52 +231,62 @@
   font-weight: 800;
 }
 
-/* Floating Bottom Nav */
+/* Floating Bottom Nav - Minimalist Refinement */
 .floating-bottom-nav {
   position: fixed;
-  bottom: 24px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 48px);
-  max-width: 400px;
-  height: 64px;
-  background: rgba(16, 16, 22, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: auto;
+  min-width: 280px;
+  height: 56px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 900;
   display: none;
-  justify-content: space-around;
-  align-items: center;
-  padding: 0 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  gap: 40px;
+  padding: 0 30px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 .floating-bottom-nav a {
-  color: var(--text-dark);
-  width: 40px;
-  height: 40px;
+  color: #666;
+  width: auto;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  transition: all 0.2s ease;
+  background: transparent !important;
 }
 
 .floating-bottom-nav a.active {
-  color: var(--accent);
-  position: relative;
+  color: #fff;
+}
+
+.floating-bottom-nav a.active svg {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+}
+
+.floating-bottom-nav a::after {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: transparent;
+  border-radius: 50%;
+  margin-top: 6px;
+  transition: all 0.2s ease;
 }
 
 .floating-bottom-nav a.active::after {
-  content: '';
-  position: absolute;
-  top: -8px;
-  width: 4px;
-  height: 4px;
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--accent);
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
 @media (max-width: 1024px) {
