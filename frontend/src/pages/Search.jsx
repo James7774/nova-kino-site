@@ -2,43 +2,61 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import api from '../utils/api';
 import MovieCard from '../components/MovieCard';
-import { Search as SearchIcon } from 'lucide-react';
-import './Search.css';
-
-const DUMMY_MOVIES = [
-  { _id: '1', title: 'Avatar: Suv yo\'li', poster: 'https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg', year: 2022, rating: 7.8, quality: '4K', genres: ['Fantastika'] },
-  { _id: '2', title: 'Oppengeymer', poster: 'https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg', year: 2023, rating: 8.9, quality: 'HD', genres: ['Drama'] },
-];
+import { Search as SearchIcon, Frown } from 'lucide-react';
+import './Movies.css'; // Reusing premium grid styles
 
 const SearchPage = () => {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const query = new URLSearchParams(location.search).get('q');
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetchResults = async () => {
+      if (!query) return;
+      setLoading(true);
       try {
         const res = await api.get(`/movies?search=${query}`);
-        setMovies(res.data.length > 0 ? res.data : []);
+        setMovies(res.data);
       } catch {
-        const filtered = DUMMY_MOVIES.filter(m => m.title.toLowerCase().includes(query?.toLowerCase() || ''));
-        setMovies(filtered);
+        console.error('Search failed');
+        setMovies([]);
+      } finally {
+        setLoading(false);
       }
     };
-    if (query) fetch();
+    fetchResults();
   }, [query]);
 
   return (
-    <div className="search-page container">
-      <h2 className="section-title"><span className="bar"></span> Qidiruv: "{query}"</h2>
-      {movies.length > 0 ? (
-        <div className="movie-grid">{movies.map(m => <MovieCard key={m._id} movie={m} />)}</div>
-      ) : (
-        <div className="no-result">
-          <SearchIcon size={32} color="var(--text-dark)" />
-          <p>Hech narsa topilmadi</p>
+    <div className="movies-premium-page fade-in">
+      <div className="movies-hero">
+        <div className="container hero-inner-v2">
+          <h1><SearchIcon size={32} /> QIDIRUV NATIJALARI</h1>
+          <p>"{query}" bo'yicha topilgan natijalar</p>
         </div>
-      )}
+      </div>
+
+      <div className="container movies-content-v2">
+        {loading ? (
+          <div className="loading-grid">
+            <div className="spinner"></div>
+            <span>Qidirlmoqda...</span>
+          </div>
+        ) : (
+          <div className="movie-grid-v2">
+            {movies.length > 0 ? (
+              movies.map(m => <MovieCard key={m._id} movie={m} />)
+            ) : (
+              <div className="no-result-v2">
+                <Frown size={48} />
+                <p>"{query}" bo'yicha hech qanday kino topilmadi.</p>
+                <button onClick={() => window.location.href = '/'}>Bosh sahifaga qaytish</button>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

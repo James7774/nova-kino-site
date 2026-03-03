@@ -2,125 +2,77 @@ import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import Hero from '../components/Hero';
 import MovieSlider from '../components/MovieSlider';
-import { TrendingUp, Clock, Flame } from 'lucide-react';
+import { TrendingUp, Clock, Flame, Sparkles } from 'lucide-react';
 import './Home.css';
 
-const DUMMY_MOVIES = [
-  {
-    _id: '1',
-    title: 'Avatar: Suv yo\'li',
-    description: 'Pandora dunyosiga qaytish. Jeyk Salli va Neytiri yangi oilasini himoya qilishlari kerak. Ular endi dengiz olamida yashashni o\'rganishlari shart.',
-    poster: 'https://image.tmdb.org/t/p/original/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg',
-    coverImage: 'https://image.tmdb.org/t/p/original/ovM06PdffK86GpvpIlme7rVvRws.jpg',
-    year: 2022, rating: 7.8, quality: '4K',
-    genres: ['Fantastika', 'Sarguzasht'], isTrending: false
-  },
-  {
-    _id: '2',
-    title: 'Oppengeymer',
-    description: 'Atom bombasini yaratgan olimning hayoti haqida.',
-    poster: 'https://image.tmdb.org/t/p/original/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg',
-    coverImage: 'https://image.tmdb.org/t/p/original/nb3xI8XI3w4pMVZ38VijbsyBqP4.jpg',
-    year: 2023, rating: 8.9, quality: 'HD',
-    genres: ['Drama', 'Tarixiy'], isTrending: true
-  },
-  {
-    _id: '3',
-    title: 'Dyun 2',
-    description: 'Pol Atreydes Fremenlar bilan qasos yo\'liga chiqadi.',
-    poster: 'https://image.tmdb.org/t/p/original/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg',
-    year: 2024, rating: 8.5, quality: '4K',
-    genres: ['Fantastika', 'Drama'], isTrending: true
-  },
-  {
-    _id: '4',
-    title: 'Gladiator II',
-    description: 'Rim imperiyasida yangi gladiator ko\'tariladi. Lucius o\'tmishini eslab, imperiya shon-sharafi uchun kurashadi.',
-    poster: 'https://image.tmdb.org/t/p/original/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg',
-    coverImage: 'https://image.tmdb.org/t/p/original/i9Y9Heio5568m7pT2y8G6F61876.jpg',
-    year: 2024, rating: 7.5, quality: '4K',
-    genres: ['Jangari', 'Drama'], isTrending: true
-  },
-  {
-    _id: '5',
-    title: 'Venom 3',
-    description: 'Venom va Eddi oxirgi sarguzashtga chiqishadi.',
-    poster: 'https://image.tmdb.org/t/p/original/k42Owka8v91bi7x6eLB1XOs6Yc.jpg',
-    year: 2024, rating: 6.8, quality: 'HD',
-    genres: ['Jangari', 'Fantastika']
-  },
-  {
-    _id: '6',
-    title: 'Deadpool va Wolverine',
-    description: 'Ikki super qahramon birlashadi.',
-    poster: 'https://image.tmdb.org/t/p/original/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg',
-    year: 2024, rating: 8.0, quality: '4K',
-    genres: ['Jangari', 'Komediya']
-  },
-  {
-    _id: '7',
-    title: 'Moana 2',
-    description: 'Moana yangi dengiz sarguzashtiga otlanadi.',
-    poster: 'https://image.tmdb.org/t/p/original/yh64qw9mgXBvlaWDi7Q9tpUBAvH.jpg',
-    year: 2024, rating: 7.2, quality: 'HD',
-    genres: ['Multfilm', 'Sarguzasht']
-  },
-  {
-    _id: '8',
-    title: 'Joker: Ikki aqlsizlik',
-    description: 'Artur Flek qamoqda yangi dunyoni kashf etadi.',
-    poster: 'https://image.tmdb.org/t/p/original/if8QiqCI7WAGImKcJCfzp6VTyKA.jpg',
-    year: 2024, rating: 5.8, quality: 'HD',
-    genres: ['Drama', 'Triller']
-  }
-];
-
 const Home = () => {
-  const [movies, setMovies] = useState(DUMMY_MOVIES);
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get('/movies?limit=20');
+        const res = await api.get('/movies?limit=30');
         if (res.data && res.data.length > 0) {
           setMovies(res.data);
         }
       } catch {
-        console.log('API fetch failed, using cache/dummy data');
+        console.log('API fetch failed');
+      } finally {
+        setLoading(false);
       }
     };
     fetchData();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>NovaKino yuklanmoqda...</p>
+      </div>
+    );
+  }
+
   const trending = movies.filter(m => m.isTrending);
+  const latest = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (
-    <div className="home">
+    <div className="home-page-premium fade-in">
       <Hero movies={trending.length > 0 ? trending : movies.slice(0, 5)} />
 
-      <section className="container home-section">
-        <div className="section-header">
-          <h2 className="section-title"><span className="bar"></span><Flame size={16} /> Premyeralar</h2>
-          <a href="/movies" className="see-all">Barchasi →</a>
-        </div>
-        <MovieSlider movies={movies.slice(0, 10)} />
-      </section>
+      <main className="container home-content-wrap">
+        <section className="home-section-premium">
+          <div className="section-header">
+            <h2 className="section-title"><span className="bar"></span><Flame size={20} /> PREMYERALAR</h2>
+            <a href="/movies" className="see-all">Barchasi →</a>
+          </div>
+          <MovieSlider movies={movies.slice(0, 15)} />
+        </section>
 
-      <section className="container home-section">
-        <div className="section-header">
-          <h2 className="section-title"><span className="bar"></span><TrendingUp size={16} /> Trendda</h2>
-          <a href="/trending" className="see-all">Barchasi →</a>
-        </div>
-        <MovieSlider movies={(trending.length > 0 ? trending : movies).slice(0, 10)} />
-      </section>
+        <section className="home-section-premium">
+          <div className="section-header">
+            <h2 className="section-title"><span className="bar"></span><TrendingUp size={20} /> TRENDDA</h2>
+            <a href="/trending" className="see-all">Barchasi →</a>
+          </div>
+          <MovieSlider movies={(trending.length > 0 ? trending : movies).slice(0, 15)} />
+        </section>
 
-      <section className="container home-section">
-        <div className="section-header">
-          <h2 className="section-title"><span className="bar"></span><Clock size={16} /> So'nggi qo'shilganlar</h2>
-          <a href="/movies" className="see-all">Barchasi →</a>
+        <div className="promo-banner-glass">
+          <div className="promo-content">
+            <h3><Sparkles size={24} /> O'zbek tilidagi eng sara kinolar faqat NovaKino'da!</h3>
+            <p>Hamma kinolar yuqori sifatda va mutlaqo bepul.</p>
+          </div>
         </div>
-        <MovieSlider movies={movies.slice(0, 10)} />
-      </section>
+
+        <section className="home-section-premium">
+          <div className="section-header">
+            <h2 className="section-title"><span className="bar"></span><Clock size={20} /> SO'NGGI QO'SHILGANLAR</h2>
+            <a href="/movies" className="see-all">Barchasi →</a>
+          </div>
+          <MovieSlider movies={latest.slice(0, 15)} />
+        </section>
+      </main>
     </div>
   );
 };

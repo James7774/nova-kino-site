@@ -1,7 +1,68 @@
-.home-section {
-  margin-bottom: 32px;
+.home-content-wrap {
+  padding: 40px 0 100px;
 }
 
-.home-section:last-child {
-  margin-bottom: 0;
+.home-section-premium {
+  margin-bottom: 60px;
+}
+
+.promo-banner-glass {
+  width: 100%;
+  padding: 60px 40px;
+  margin: 60px 0;
+  background: linear-gradient(135deg, rgba(229, 185, 95, 0.1) 0%, rgba(5, 5, 7, 0.4) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--accent-soft);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.promo-banner-glass::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  width: 140%;
+  height: 200%;
+  background: radial-gradient(circle, var(--accent-soft) 0%, transparent 60%);
+  z-index: -1;
+}
+
+.promo-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--accent);
+}
+
+.promo-content p {
+  font-size: 1.1rem;
+  color: var(--text-gray);
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--bg-card);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .home-content-wrap { padding-top: 20px; padding-bottom: 80px; }
+  .home-section-premium { margin-bottom: 40px; }
+  .promo-banner-glass { padding: 40px 20px; margin: 40px 0; }
+  .promo-content h3 { font-size: 1.4rem; }
+  .promo-content p { font-size: 0.9rem; }
 }

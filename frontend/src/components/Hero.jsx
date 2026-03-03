@@ -1,57 +1,93 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Play, Star, Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, Info, Calendar, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Hero.css';
 
 const Hero = ({ movies }) => {
   const [index, setIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  const nextSlide = useCallback(() => {
+    if (animating) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev === (movies?.length || 1) - 1 ? 0 : prev + 1));
+      setAnimating(false);
+    }, 600);
+  }, [animating, movies]);
+
+  const prevSlide = () => {
+    if (animating) return;
+    setAnimating(true);
+    setTimeout(() => {
+      setIndex((prev) => (prev === 0 ? (movies?.length || 1) - 1 : prev - 1));
+      setAnimating(false);
+    }, 600);
+  };
 
   useEffect(() => {
     if (!movies || movies.length <= 1) return;
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev === movies.length - 1 ? 0 : prev + 1));
-    }, 3000);
+    const interval = setInterval(nextSlide, 8000);
     return () => clearInterval(interval);
-  }, [movies]);
+  }, [movies, nextSlide]);
 
   if (!movies || movies.length === 0) return null;
   const movie = movies[index];
 
   return (
-    <div className="hero">
-      <div className="hero-bg-img" style={{ backgroundImage: `url(${movie.coverImage || movie.poster})` }} key={`bg-${movie._id}`} />
-      
-      <div className="container hero-inner">
-        <div className="hero-content" key={`content-${movie._id}`}>
-          <span className="hero-tag">Premyera</span>
-          <h1 className="hero-title">{movie.title}</h1>
-          <div className="hero-meta">
-            <span className="meta-item"><Calendar size={18} /> {movie.year}</span>
-            <span className="meta-item"><Star size={18} fill="currentColor" /> {movie.rating || 'N/A'}</span>
-            <span className="meta-badge">{movie.quality}</span>
-          </div>
-          <p className="hero-desc">
-            {movie.description?.substring(0, 220)}...
-          </p>
-          <div className="hero-actions">
-            <Link to={`/movie/${movie._id}`} className="btn-watch">
-              <Play size={20} fill="currentColor" /> Ko'rish
-            </Link>
-            <Link to={`/movie/${movie._id}`} className="btn-info">
-              Batafsil
-            </Link>
+    <div className="hero-section">
+      <div className={`hero-carousel ${animating ? 'fade-out' : 'fade-in'}`}>
+        <div 
+          className="hero-background" 
+          style={{ backgroundImage: `url(${movie.coverImage || movie.poster})` }}
+        >
+          <div className="hero-overlay" />
+          <div className="hero-overlay-bottom" />
+        </div>
+        
+        <div className="container hero-container">
+          <div className="hero-content">
+            <div className="hero-badge-row">
+              <span className="hero-status-badge">PREMYERA</span>
+              <span className="hero-quality-badge">{movie.quality || 'HD'}</span>
+            </div>
+            
+            <h1 className="hero-main-title">{movie.title}</h1>
+            
+            <div className="hero-metadata-row">
+              <div className="meta-item"><Calendar size={16} /> {movie.year}</div>
+              <div className="meta-item accent-text"><Star size={16} fill="var(--accent)" /> {movie.rating || '8.5'}</div>
+              <div className="meta-item genre-tags">
+                {movie.genres?.slice(0, 2).map(g => <span key={g}>{g}</span>)}
+              </div>
+            </div>
+
+            <p className="hero-description">{movie.description}</p>
+            
+            <div className="hero-button-group">
+              <Link to={`/movie/${movie._id}`} className="hero-btn-primary">
+                <Play size={20} fill="currentColor" /> Ko'rish
+              </Link>
+              <Link to={`/movie/${movie._id}`} className="hero-btn-secondary">
+                <Info size={20} /> Batafsil
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="hero-dots">
-        {movies.slice(0, 5).map((_, i) => (
-          <span 
-            key={i} 
-            className={`dot ${i === index ? 'active' : ''}`} 
-            onClick={() => setIndex(i)}
-          />
-        ))}
+      <div className="hero-navigation">
+        <button onClick={prevSlide} className="nav-arrow"><ChevronLeft size={24} /></button>
+        <div className="hero-pagination">
+          {movies.slice(0, 5).map((_, i) => (
+            <div 
+              key={i} 
+              className={`pagination-bar ${i === index ? 'active' : ''}`} 
+              onClick={() => setIndex(i)}
+            />
+          ))}
+        </div>
+        <button onClick={nextSlide} className="nav-arrow"><ChevronRight size={24} /></button>
       </div>
     </div>
   );
