@@ -233,16 +233,57 @@
 }
 
 @media (max-width: 768px) {
-  .hero-section { height: 90vh; }
-  .hero-overlay { background: linear-gradient(to top, rgba(5, 5, 7, 1) 0%, rgba(5, 5, 7, 0.6) 50%, rgba(5, 5, 7, 0.4) 100%); }
-  .hero-content { text-align: center; max-width: 100%; align-items: center; }
-  .hero-badge-row, .hero-metadata-row { justify-content: center; }
-  .hero-button-group { width: 100%; flex-direction: column; gap: 12px; }
-  .hero-btn-primary, .hero-btn-secondary { justify-content: center; width: 100%; }
+  .hero-section { height: 85vh; min-height: 550px; }
+  .hero-overlay { background: linear-gradient(to top, rgba(5, 5, 7, 1) 0%, rgba(5, 5, 7, 0.7) 60%, rgba(5, 5, 7, 0.5) 100%); }
+  .hero-content { 
+    text-align: center; 
+    max-width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 0 5%;
+  }
+  .hero-badge-row, .hero-metadata-row { justify-content: center; gap: 12px; margin-bottom: 15px; }
+  
+  .hero-main-title { 
+    font-size: 2.2rem; 
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 25px;
+    letter-spacing: -0.5px;
+    text-transform: none; /* Less 'bachkana' than all-caps */
+  }
+
+  .hero-button-group { width: 100%; max-width: 320px; flex-direction: column; gap: 12px; }
+  .hero-btn-primary { 
+    padding: 14px 0; 
+    justify-content: center; 
+    width: 100%; 
+    border-radius: 12px;
+    background: #fff;
+    color: #000 !important;
+    font-size: 0.95rem;
+    box-shadow: none; /* Remove harsh glow */
+  }
+  .hero-btn-secondary { 
+    padding: 14px 0; 
+    justify-content: center; 
+    width: 100%; 
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hero-status-badge { box-shadow: none; font-size: 0.65rem; }
+
   .hero-description { display: none; }
   .hero-navigation {
     right: 50%;
     transform: translateX(50%);
-    bottom: 120px;
+    bottom: 40px;
+    gap: 15px;
   }
+  .nav-arrow { width: 44px; height: 44px; }
+  .pagination-bar { width: 30px; }
 }
+
