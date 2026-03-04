@@ -24,19 +24,19 @@
 
 .uz-nav-logo {
   font-size: 1.4rem;
-  font-weight: 800;
+  font-weight: 900;
   color: #fff;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
 }
 
 .uz-nav-logo span {
-  color: #c0392b; /* The O in Uzmovi */
+  color: var(--accent); /* Premium silver */
 }
 
 .uz-nav-logo span:last-child {
-  font-size: 0.8rem;
-  color: #aaa;
-  font-weight: 400;
+  font-size: 0.9rem;
+  color: #c0392b; /* Red extension */
+  font-weight: 800;
   letter-spacing: 0;
 }
 

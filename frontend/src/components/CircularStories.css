@@ -28,7 +28,7 @@
   height: 58px;
   border-radius: 50%;
   padding: 2px;
-  background: linear-gradient(135deg, #e91e63, #9c27b0); /* Uzmovi pink/purple gradient */
+  background: linear-gradient(135deg, #fff, #808090); /* NovaKino Silver/Platinum gradient */
   display: flex;
   align-items: center;
   justify-content: center;
