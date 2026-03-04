@@ -19,8 +19,13 @@ const Login = () => {
       const { data } = await api.post('/users/login', { username, password });
       localStorage.setItem('userInfo', JSON.stringify(data));
       navigate('/admin');
-    } catch {
-      setError('Noto\'g\'ri login yoki parol!');
+    } catch (err) {
+      if (err.response) {
+        setError('Login yoki parol noto\'g\'ri!');
+      } else {
+        setError('Server bilan aloqa yo\'q (Network Error)!');
+      }
+      console.error('Login error:', err);
     }
     setLoading(false);
   };
