@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import api from '../utils/api';
 import { Plus, Trash2, Edit2, LogOut, X, Film, Search, ExternalLink, Activity, Star, Eye } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
