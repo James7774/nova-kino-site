@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import CircularStories from '../components/CircularStories';
 import MovieSlider from '../components/MovieSlider';
-import { Search, User, UserPlus, Menu, Send, ChevronDown, Play } from 'lucide-react';
+import { Search, User, Menu, Send, ChevronDown, Play } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
@@ -54,12 +54,12 @@ const Home = () => {
         {/* 2. Auth Row */}
         <div className="uz-auth-row">
           <div className="uz-auth-box">
-             <a href="/admin/login" className="uz-auth-link">
+             <Link to="/admin/login" className="uz-auth-link">
                <User size={14} /> Kirish
-             </a>
-             <a href="/" className="uz-auth-link">
+             </Link>
+             <Link to="/register" className="uz-auth-link">
                Ro'yxatdan o'tish
-             </a>
+             </Link>
           </div>
           <button className="uz-filter-btn">
             <ChevronDown size={18} />
@@ -84,7 +84,6 @@ const Home = () => {
             <span>PREMYERALAR</span>
           </div>
           
-          {/* Simple Hero/Featured Slider like Uzmovi */}
           <div className="uz-featured-slider">
              <div className="uz-slide-item">
                 <img src={featured[0]?.poster} alt="" />
