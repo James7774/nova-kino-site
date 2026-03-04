@@ -27,24 +27,27 @@ const Login = () => {
 
   return (
     <div className="login-wrapper">
-      <div className="login-box">
-        <h2>Admin <span>Kirish</span></h2>
-        <p className="login-hint">Admin panel uchun kirish</p>
+      <div className="login-box glass">
+        <h2 className="text-gradient">ADMIN <span>PANEL</span></h2>
+        <p className="login-hint">Xavfsiz boshqaruv paneliga kirish</p>
         <form onSubmit={handleLogin}>
           <div className="input-row">
-            <User size={16} />
-            <input type="text" placeholder="Login" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <User size={18} />
+            <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
           </div>
           <div className="input-row">
-            <Lock size={16} />
-            <input type="password" placeholder="Parol" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <Lock size={18} />
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          {error && <p className="login-error">{error}</p>}
+          {error && <p className="login-error pulsate">{error}</p>}
           <button type="submit" className="login-submit" disabled={loading}>
-            {loading ? 'Tekshirilmoqda...' : 'Kirish'}
+            {loading ? 'Tekshirilmoqda...' : 'KIRISH'}
           </button>
         </form>
-        <p className="login-note">Demo: <strong>admin</strong> / <strong>admin123</strong></p>
+        <div className="login-footer">
+          <p>Yangi parol: <strong>admin</strong> / <strong>novakino777</strong></p>
+          <a href="/" className="back-to-home">← Bosh sahifa</a>
+        </div>
       </div>
     </div>
   );
