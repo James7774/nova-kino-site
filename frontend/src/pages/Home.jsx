@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
-import Hero from '../components/Hero';
-import MovieSlider from '../components/MovieSlider';
 import CircularStories from '../components/CircularStories';
-import { TrendingUp, Clock, Flame, Sparkles } from 'lucide-react';
+import MovieSlider from '../components/MovieSlider';
+import { Search, User, UserPlus, Menu, Send, ChevronDown, Play } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,59 +28,97 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      navigate(`/search?q=${searchQuery}`);
+    }
+  };
+
   if (loading) {
     return (
-      <div className="loading-screen">
+      <div className="uz-loader">
         <div className="spinner"></div>
-        <p>NovaKino yuklanmoqda...</p>
       </div>
     );
   }
 
-  const trending = movies.filter(m => m.isTrending);
   const latest = [...movies].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  const featured = movies.slice(0, 5);
 
   return (
-    <div className="home-page-premium fade-in">
-      {/* Uzmovi-style circular links, placed at the top of content */}
-      <CircularStories movies={movies.slice(0, 20)} />
-      
-      {/* Hero section */}
-      <Hero movies={trending.length > 0 ? trending : movies.slice(0, 5)} />
+    <div className="uz-page-wrapper">
+      {/* 1. Circular Stories */}
+      <CircularStories movies={movies.slice(0, 18)} />
 
-      <main className="container home-content-wrap">
-
-        <section className="home-section-premium">
-          <div className="section-header">
-            <h2 className="section-title"><Flame size={20} /> PREMYERALAR</h2>
-            <a href="/movies" className="see-all">Barchasi →</a>
+      <div className="container">
+        {/* 2. Auth Row */}
+        <div className="uz-auth-row">
+          <div className="uz-auth-box">
+             <a href="/admin/login" className="uz-auth-link">
+               <User size={14} /> Kirish
+             </a>
+             <a href="/" className="uz-auth-link">
+               Ro'yxatdan o'tish
+             </a>
           </div>
-          <MovieSlider movies={movies.slice(0, 15)} />
-        </section>
-
-        <section className="home-section-premium">
-          <div className="section-header">
-            <h2 className="section-title"><TrendingUp size={20} /> TRENDDA</h2>
-            <a href="/trending" className="see-all">Barchasi →</a>
-          </div>
-          <MovieSlider movies={(trending.length > 0 ? trending : movies).slice(0, 15)} />
-        </section>
-
-        <div className="promo-banner-glass">
-          <div className="promo-content">
-            <h3><Sparkles size={24} /> O'zbek tilidagi eng sara kinolar faqat NovaKino'da!</h3>
-            <p>Hamma kinolar yuqori sifatda va mutlaqo bepul.</p>
-          </div>
+          <button className="uz-filter-btn">
+            <ChevronDown size={18} />
+          </button>
         </div>
 
-        <section className="home-section-premium">
-          <div className="section-header">
-            <h2 className="section-title"><Clock size={20} /> SO'NGGI QO'SHILGANLAR</h2>
-            <a href="/movies" className="see-all">Barchasi →</a>
+        {/* 3. Search Box */}
+        <div className="uz-search-wrapper">
+          <input 
+            type="text" 
+            placeholder="Qidirish..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
+          />
+          <Search className="uz-search-icon" size={18} />
+        </div>
+
+        {/* 4. Main Sections */}
+        <section className="uz-main-section">
+          <div className="uz-section-title">
+            <span>PREMYERALAR</span>
           </div>
-          <MovieSlider movies={latest.slice(0, 15)} />
+          
+          {/* Simple Hero/Featured Slider like Uzmovi */}
+          <div className="uz-featured-slider">
+             <div className="uz-slide-item">
+                <img src={featured[0]?.poster} alt="" />
+                <div className="uz-play-overlay">
+                   <div className="uz-play-circle">
+                      <Play size={24} fill="#fff" />
+                   </div>
+                </div>
+                <div className="uz-slide-info">
+                   <h3>{featured[0]?.title} (premyera, o'zbek tilida, Uzbek)</h3>
+                </div>
+             </div>
+          </div>
         </section>
-      </main>
+
+        <section className="uz-main-section">
+          <div className="uz-section-title teal">
+            <span>TARJIMA KINOLAR</span>
+          </div>
+          <MovieSlider movies={movies.slice(6, 18)} />
+        </section>
+
+        <section className="uz-main-section">
+          <div className="uz-section-title gold">
+            <span>SO'NGGI QO'SHILGANLAR</span>
+          </div>
+          <MovieSlider movies={latest.slice(0, 12)} />
+        </section>
+      </div>
+
+      {/* Telegram Floating Button */}
+      <a href="https://t.me/" target="_blank" rel="noreferrer" className="uz-tg-float">
+        <Send size={22} fill="#fff" />
+      </a>
     </div>
   );
 };

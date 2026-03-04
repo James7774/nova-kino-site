@@ -1,8 +1,7 @@
 .stories-wrapper {
-  padding: 12px 0;
-  background: #050507;
+  padding: 10px 0;
+  background: #0f161c;
   width: 100%;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   overflow: hidden;
 }
 
@@ -10,12 +9,10 @@
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding: 4px 20px;
+  padding: 0 15px;
   scrollbar-width: none;
   -ms-overflow-style: none;
   align-items: center;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
 }
 
 .stories-container::-webkit-scrollbar {
@@ -24,26 +21,18 @@
 
 .story-item {
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .story-circle {
-  width: 62px;
-  height: 62px;
+  width: 58px;
+  height: 58px;
   border-radius: 50%;
   padding: 2px;
-  /* Sophisticated gradient: Silver to deep slate */
-  background: linear-gradient(135deg, #e0e0e0 0%, #404050 100%); 
+  background: linear-gradient(135deg, #e91e63, #9c27b0); /* Uzmovi pink/purple gradient */
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.05);
 }
 
 .story-circle img {
@@ -51,30 +40,12 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #050507; /* Gap between image and gradient border */
-}
-
-.story-item:hover {
-  transform: scale(1.1);
-}
-
-.story-item:hover .story-circle {
-  background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
-  box-shadow: 0 0 15px var(--accent-glow);
+  border: 2px solid #0f161c; /* Gap between image and gradient */
 }
 
 @media (max-width: 768px) {
-  .stories-wrapper {
-    padding: 10px 0;
-  }
-  .stories-container {
-    gap: 12px;
-    padding: 0 16px;
-  }
   .story-circle {
-    width: 66px; /* Larger on mobile for that 'Uzmovi' feel */
-    height: 66px;
+    width: 60px;
+    height: 60px;
   }
 }
-
-
