@@ -1,3 +1,7 @@
+.home-page-premium {
+  padding-top: 75px; /* Clear the fixed navbar */
+}
+
 .home-content-wrap {
   padding: 40px 0 100px;
 }

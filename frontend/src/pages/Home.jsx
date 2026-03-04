@@ -40,10 +40,14 @@ const Home = () => {
 
   return (
     <div className="home-page-premium fade-in">
-      <CircularStories movies={movies.slice(0, 15)} />
+      {/* Uzmovi-style circular links, placed at the top of content */}
+      <CircularStories movies={movies.slice(0, 20)} />
+      
+      {/* Hero section */}
       <Hero movies={trending.length > 0 ? trending : movies.slice(0, 5)} />
 
       <main className="container home-content-wrap">
+
         <section className="home-section-premium">
           <div className="section-header">
             <h2 className="section-title"><Flame size={20} /> PREMYERALAR</h2>
